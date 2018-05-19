@@ -1,0 +1,4 @@
+follow
+tumble
+abandon
+UNKNOWN
