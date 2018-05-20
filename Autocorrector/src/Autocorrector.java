@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 
 
@@ -33,9 +32,7 @@ public class Autocorrector {
         
         // TODO: populate array list with corrections
         
-        corrected_words.forEach((corrected_word) -> {
-            System.out.println(corrected_word);
-        });
+        corrected_words.forEach(System.out::println);
     }
     
 }
