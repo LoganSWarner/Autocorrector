@@ -24,9 +24,7 @@ public class Autocorrector {
         BufferedReader typos_in = new BufferedReader(new FileReader(new File(args[0])));
         ArrayList<String> typo_words = new ArrayList<>();
         
-        typos_in.lines().forEach((typo_word) -> {
-            typo_words.add(typo_word);
-        });
+        typos_in.lines().forEach(typo_words::add);
         
         ArrayList<String> corrected_words = new ArrayList<>();
         
