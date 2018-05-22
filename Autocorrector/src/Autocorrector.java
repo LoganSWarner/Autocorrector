@@ -31,13 +31,7 @@ public class Autocorrector {
         
         ArrayList<String> corrected_words = new ArrayList<>();
         
-        // TODO: populate array list with corrections
-        // Design idea: collapse words into single characters with amounts,
-        // compute similarity in placement and amount of characters,
-        // start with dictionary entries that are the same length collapsed as
-        // the input for some efficiency.
-        // Stop early if we reach 100% similarity (1.0) or reach a threshold of
-        // good-enough similarity once finishing a length section.
+        // TODO: populate array list with corrections based on Damerau-Levenshtein distance
         
         corrected_words.forEach(System.out::println);
     }
