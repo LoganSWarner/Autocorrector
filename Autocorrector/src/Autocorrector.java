@@ -34,8 +34,8 @@ public class Autocorrector {
         
         // Create corrections
         for(String typo_word: typo_words){
-            // Save work by being strict here, 2 to prevent last example from correcting to "dud"
-            int closest_dl_distance = 2;
+            // Save work by being strict here, limit to messing with 2/3rd of the word
+            int closest_dl_distance = typo_word.length() * 2/3;
             String closest_word = "UNKNOWN";
             for(String possible_word: possible_words) {
                 // Ignore case for comparing so that incorrect casing doesn't matter, also condense 3 or more repeated letters into only 2
