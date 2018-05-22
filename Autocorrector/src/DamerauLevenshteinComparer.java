@@ -23,31 +23,33 @@ public class DamerauLevenshteinComparer {
         }
         // Initialize the outermost edge with the maximum distance
         d[0][0] = maximum_distance;
-        for(int i = 1; i <= alpha.length() + 1; i++) {
-            d[i][0] = maximum_distance;
+        for(int i = 0; i <= alpha.length(); i++) {
+            d[i+1][0] = maximum_distance;
+            d[i+1][1] = i;
         }
-        for(int j = 1; j <= beta.length() + 1; j++) {
-            d[0][j] = maximum_distance;
+        for(int j = 0; j <= beta.length(); j++) {
+            d[0][j+1] = maximum_distance;
+            d[1][j+1] = j;
         }
         
-        for(int i = 0; i < alpha.length(); i++) {
+        for(int i = 1; i <= alpha.length(); i++) {
             int db = 0;
-            for(int j = 0; j < beta.length(); j++) {
-                int k = da.get(beta.charAt(j));
+            for(int j = 1; j <= beta.length(); j++) {
+                int k = da.get(beta.charAt(j-1));
                 int l = db;
                 int substitution_cost;
-                if(alpha.charAt(i) == beta.charAt(j)) {
+                if(alpha.charAt(i-1) == beta.charAt(j-1)) {
                     substitution_cost = 0;
-                    db = j + 1;
+                    db = j;
                 } else {
                     substitution_cost = 1;
                 }
-                d[i+2][j+2] = Math.min(d[i+1][j+1] + substitution_cost,
-                                Math.min(d[i+2][j+1] + 1,
-                                        Math.min(d[i+1][j+2] + 1,
-                                                d[k][l] + (i-k) + 1 + (j-l))));
+                d[i+1][j+1] = Math.min(d[i][j] + substitution_cost,
+                                Math.min(d[i+1][j] + 1,
+                                        Math.min(d[i][j+1] + 1,
+                                                d[k][l] + (i-k-1) + 1 + (j-l-1))));
             }
-            da.put(alpha.charAt(i), i);
+            da.put(alpha.charAt(i-1), i);
         }
         
         return d[alpha.length() + 1][beta.length() + 1];
