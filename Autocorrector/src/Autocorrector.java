@@ -17,38 +17,36 @@ public class Autocorrector {
      * @throws java.io.FileNotFoundException
      */
     public static void main(String[] args) throws FileNotFoundException {
+        // Guard clause for arguments
         if(args.length < 1) {
             System.out.println("Usage: `java Autocorrector <inputfile>`");
             return;
         }
+        // Read in files and populate lists
         BufferedReader typos_in = new BufferedReader(new FileReader(new File(args[0])));
         ArrayList<String> typo_words = new ArrayList<>();
         BufferedReader possible_words_in = new BufferedReader(new FileReader(new File("en_US.dic")));
         ArrayList<String> possible_words = new ArrayList<>();
-        
         typos_in.lines().forEach(typo_words::add);
         possible_words_in.lines().forEach(possible_words::add);
         
         ArrayList<String> corrected_words = new ArrayList<>();
         
-        // TODO: populate array list with suggestions based on closest
-        // Damerau-Levenshtein distance, ignoring case, but preserving case of
-        // suggestions        
+        // Create corrections
         for(String typo_word: typo_words){
-            int closest_dl_distance = Integer.MAX_VALUE;
-            String closest_word = typo_word;
+            // Save work by being strict here, 2 to prevent last example from correcting to "dud"
+            int closest_dl_distance = 2;
+            String closest_word = "UNKNOWN";
             for(String possible_word: possible_words) {
+                // Ignore case for comparing so that incorrect casing doesn't matter
                 int cur_distance = DamerauLevenshteinComparer.getDistance(typo_word, possible_word.toLowerCase());
+                // Only update if we yound a better match
                 if(cur_distance < closest_dl_distance) {
                     closest_dl_distance = cur_distance;
                     closest_word = possible_word;
                 }
             }
-            if(closest_dl_distance < 2) {
-                corrected_words.add(closest_word);
-            } else {
-                corrected_words.add("UNKNOWN");
-            }
+            corrected_words.add(closest_word);
         }
         
         corrected_words.forEach(System.out::println);
