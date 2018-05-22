@@ -6,7 +6,7 @@ import java.util.TreeMap;
  * @author Logan Warner
  */
 public class DamerauLevenshteinComparer {
-    private static final int ALPHABET_SIZE = 36; //Alphanumeric only, ignoring case
+    private static final int ALPHABET_SIZE = 37; //Alphanumeric only, ignoring case, with apostrophe
     
     public static int getDistance(String alpha, String beta) {
         // Note: Java initalizes integer arrays to zero, saving some work
@@ -21,6 +21,7 @@ public class DamerauLevenshteinComparer {
         for(int i = 97; i < 123; i++) {
             da.put((char) i, 0);
         }
+        da.put((char) 39, 0);
         // Initialize the outermost edge with the maximum distance
         d[0][0] = maximum_distance;
         for(int i = 0; i <= alpha.length(); i++) {
