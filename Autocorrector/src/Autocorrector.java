@@ -39,7 +39,7 @@ public class Autocorrector {
             String closest_word = "UNKNOWN";
             for(String possible_word: possible_words) {
                 // Ignore case for comparing so that incorrect casing doesn't matter
-                int cur_distance = DamerauLevenshteinComparer.getDistance(typo_word, possible_word.toLowerCase());
+                int cur_distance = DamerauLevenshteinComparer.getDistance(typo_word.toLowerCase(), possible_word.toLowerCase());
                 // Only update if we yound a better match
                 if(cur_distance < closest_dl_distance) {
                     closest_dl_distance = cur_distance;
