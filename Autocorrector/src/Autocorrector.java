@@ -38,8 +38,8 @@ public class Autocorrector {
             int closest_dl_distance = 2;
             String closest_word = "UNKNOWN";
             for(String possible_word: possible_words) {
-                // Ignore case for comparing so that incorrect casing doesn't matter
-                int cur_distance = DamerauLevenshteinComparer.getDistance(typo_word.toLowerCase(), possible_word.toLowerCase());
+                // Ignore case for comparing so that incorrect casing doesn't matter, also condense 3 or more repeated letters into only 2
+                int cur_distance = DamerauLevenshteinComparer.getDistance(typo_word.toLowerCase().replaceAll("(.)\\1{2,}", "$1$1"), possible_word.toLowerCase());
                 // Only update if we yound a better match
                 if(cur_distance < closest_dl_distance) {
                     closest_dl_distance = cur_distance;
