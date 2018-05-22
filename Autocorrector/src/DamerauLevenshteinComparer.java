@@ -50,6 +50,6 @@ public class DamerauLevenshteinComparer {
             da.put(alpha.charAt(i), i);
         }
         
-        return 0;
+        return d[alpha.length() + 1][beta.length() + 1];
     }
 }
